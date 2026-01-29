@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -276,6 +276,8 @@ type internalEchoClient interface {
 // to have the values echoed in the response trailers. Set the
 // ‘x-goog-request-params’ metadata key on any method to have the values
 // echoed in the response headers.
+//
+// This client uses Echo version v1_20240408.
 type EchoClient struct {
 	// The internal transport-dependent client.
 	internalClient internalEchoClient
@@ -2119,6 +2121,9 @@ func (c *echoRESTClient) ListOperations(ctx context.Context, req *longrunningpb.
 		}
 		if req.GetPageToken() != "" {
 			params.Add("pageToken", fmt.Sprintf("%v", req.GetPageToken()))
+		}
+		if req.GetReturnPartialSuccess() {
+			params.Add("returnPartialSuccess", fmt.Sprintf("%v", req.GetReturnPartialSuccess()))
 		}
 
 		baseUrl.RawQuery = params.Encode()
